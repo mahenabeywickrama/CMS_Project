@@ -9,17 +9,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class UserDAO {
-    private final BasicDataSource basicDataSource;
+    private final BasicDataSource dataSource;
 
     public UserDAO(BasicDataSource dataSource) {
-        this.basicDataSource = dataSource;
+        this.dataSource = dataSource;
     }
 
     public User validateUser(String username, String password) {
         User user = null;
         String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
 
-        try (Connection conn = basicDataSource.getConnection();
+        try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, username);
@@ -28,7 +28,7 @@ public class UserDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 user = new User(
-                        rs.getInt("user_id"),
+                        rs.getInt("id"),
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("role")
