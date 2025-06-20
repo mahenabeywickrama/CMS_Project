@@ -63,4 +63,61 @@ public class ComplaintDAO {
         }
         return list;
     }
+
+    public Complaint getComplaintById(int complaintId) {
+        Complaint complaint = null;
+        String sql = "SELECT * FROM complaints WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, complaintId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                complaint = new Complaint();
+                complaint.setId(rs.getInt("id"));
+                complaint.setUserId(rs.getInt("user_id"));
+                complaint.setTitle(rs.getString("title"));
+                complaint.setDescription(rs.getString("description"));
+                complaint.setStatus(rs.getString("status"));
+                complaint.setRemarks(rs.getString("remarks"));
+                complaint.setDate(rs.getDate("date"));
+                complaint.setTime(rs.getTime("time"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return complaint;
+    }
+
+    public void updateComplaint(Complaint complaint) {
+        String sql = "UPDATE complaints SET title = ?, description = ? WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, complaint.getTitle());
+            stmt.setString(2, complaint.getDescription());
+            stmt.setInt(3, complaint.getId());
+
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteComplaint(int id) {
+        String sql = "DELETE FROM complaints WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
