@@ -35,7 +35,7 @@
 
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-        <h3 class="mb-3 mt-3">Welcome, <%= user.getUsername() %>!</h3>
+        <h3 class="mb-3 mt-3">Welcome, <%= user.getUsername() %> !</h3>
         <a href="${pageContext.request.contextPath}/logout" class="btn btn-outline-secondary logout-btn">Logout</a>
     </div>
 

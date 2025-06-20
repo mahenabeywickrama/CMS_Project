@@ -1,0 +1,22 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+table th, table td {
+    vertical-align: middle;
+}
+
+.form-select-sm, .form-control-sm {
+    min-width: 120px;
+}
+
+table form {
+    margin: 0;
+    width: 100%;
+}
+
+/* Optional: fix form layout inside table rows */
+table tr > form > td {
+    padding: 0.5rem 0.75rem;
+}
