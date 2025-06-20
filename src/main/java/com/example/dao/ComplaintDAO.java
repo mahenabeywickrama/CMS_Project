@@ -120,4 +120,46 @@ public class ComplaintDAO {
         }
     }
 
+    public List<Complaint> getAllComplaints() {
+        List<Complaint> list = new ArrayList<>();
+        String sql = "SELECT * FROM complaints ORDER BY created_at DESC";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Complaint complaint = new Complaint();
+                complaint.setId(rs.getInt("id"));
+                complaint.setUserId(rs.getInt("user_id"));
+                complaint.setTitle(rs.getString("title"));
+                complaint.setDescription(rs.getString("description"));
+                complaint.setStatus(rs.getString("status"));
+                complaint.setRemarks(rs.getString("remarks"));
+                complaint.setDate(rs.getDate("date"));
+                complaint.setTime(rs.getTime("time"));
+                list.add(complaint);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public void updateStatusAndRemarks(int id, String status, String remarks) {
+        String sql = "UPDATE complaints SET status = ?, remarks = ? WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, status);
+            stmt.setString(2, remarks);
+            stmt.setInt(3, id);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
