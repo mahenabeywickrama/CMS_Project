@@ -1,0 +1,21 @@
+CREATE DATABASE IF NOT EXISTS cms_db;
+USE cms_db;
+
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('EMPLOYEE', 'ADMIN') NOT NULL
+);
+
+CREATE TABLE complaints (
+    complaint_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    title VARCHAR(255),
+    description TEXT,
+    status ENUM('PENDING', 'IN_PROGRESS', 'RESOLVED') DEFAULT 'PENDING',
+    remarks TEXT,
+    date DATE,
+    time TIME,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
