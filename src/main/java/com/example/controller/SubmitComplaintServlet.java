@@ -13,6 +13,10 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @WebServlet("/submitComplaint")
 public class SubmitComplaintServlet extends HttpServlet {
@@ -38,6 +42,8 @@ public class SubmitComplaintServlet extends HttpServlet {
         complaint.setUserId(user.getId());
         complaint.setTitle(title);
         complaint.setDescription(description);
+        complaint.setDate(Date.valueOf(LocalDate.now()));
+        complaint.setTime(Time.valueOf(LocalTime.now()));
 
         complaintDAO.addComplaint(complaint);
         resp.sendRedirect("viewMyComplaints");

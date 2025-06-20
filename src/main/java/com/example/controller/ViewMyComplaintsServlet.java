@@ -34,6 +34,6 @@ public class ViewMyComplaintsServlet extends HttpServlet {
         List<Complaint> complaintList = complaintDAO.getComplaintsByUserId(user.getId());
 
         req.setAttribute("complaints", complaintList);
-        req.getRequestDispatcher("jsp/my_complaints.jsp").forward(req, resp);
+        req.getRequestDispatcher("jsp/employee_dashboard.jsp").forward(req, resp);
     }
 }

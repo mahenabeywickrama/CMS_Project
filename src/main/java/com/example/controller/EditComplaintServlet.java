@@ -25,8 +25,9 @@ public class EditComplaintServlet extends HttpServlet {
         Complaint complaint = complaintDAO.getComplaintById(id);
 
         if (!"RESOLVED".equals(complaint.getStatus())) {
-            req.setAttribute("complaint", complaint);
-            req.getRequestDispatcher("jsp/edit_complaint.jsp").forward(req, resp);
+            req.setAttribute("editComplaint", complaint);
+            req.setAttribute("complaints", complaintDAO.getComplaintsByUserId(complaint.getUserId()));
+            req.getRequestDispatcher("jsp/employee_dashboard.jsp").forward(req, resp);
         } else {
             resp.sendRedirect("viewMyComplaints");
         }
