@@ -122,7 +122,7 @@ public class ComplaintDAO {
 
     public List<Complaint> getAllComplaints() {
         List<Complaint> list = new ArrayList<>();
-        String sql = "SELECT * FROM complaints ORDER BY created_at DESC";
+        String sql = "SELECT * FROM complaints ORDER BY date DESC";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);

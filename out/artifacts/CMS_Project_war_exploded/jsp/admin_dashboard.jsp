@@ -53,6 +53,7 @@
     <%
         if (complaints != null && !complaints.isEmpty()) {
             for (Complaint c : complaints) {
+                System.out.println(c);
     %>
     <tr>
         <form action="${pageContext.request.contextPath}/admin/updateComplaint" method="post">

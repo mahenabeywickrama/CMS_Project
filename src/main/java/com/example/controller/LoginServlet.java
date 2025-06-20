@@ -32,9 +32,9 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", user);
 
             if ("ADMIN".equals(user.getRole())) {
-                resp.sendRedirect("jsp/admin_dashboard.jsp");
+                resp.sendRedirect("admin/complaints");
             } else {
-                resp.sendRedirect("jsp/employee_dashboard.jsp");
+                resp.sendRedirect("viewMyComplaints");
             }
         } else {
             req.setAttribute("error", "Invalid username or password");

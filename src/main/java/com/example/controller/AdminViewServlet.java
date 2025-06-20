@@ -24,6 +24,6 @@ public class AdminViewServlet extends HttpServlet {
 
         List<Complaint> complaints = complaintDAO.getAllComplaints();
         req.setAttribute("complaints", complaints);
-        req.getRequestDispatcher("/jsp/admin_complaints.jsp").forward(req, resp);
+        req.getRequestDispatcher("/jsp/admin_dashboard.jsp").forward(req, resp);
     }
 }
