@@ -16,7 +16,6 @@ table form {
     width: 100%;
 }
 
-/* Optional: fix form layout inside table rows */
 table tr > form > td {
     padding: 0.5rem 0.75rem;
 }
