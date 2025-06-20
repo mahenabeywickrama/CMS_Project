@@ -9,6 +9,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.model.Complaint" %>
 <%@ page import="com.example.model.User" %>
+
 <%
     User user = (User) session.getAttribute("user");
     if (user == null || !"EMPLOYEE".equals(user.getRole())) {
@@ -20,6 +21,7 @@
     List<Complaint> complaints = (List<Complaint>) request.getAttribute("complaints");
     String formAction = (editComplaint != null) ? "editComplaint" : "submitComplaint";
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
