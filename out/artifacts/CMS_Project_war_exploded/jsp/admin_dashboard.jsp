@@ -75,7 +75,8 @@
                 <input type="submit" value="Update" />
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/deleteComplaint?id=<%= c.getId() %>">Delete</a>
+                <a href="${pageContext.request.contextPath}/deleteComplaint?id=<%= c.getId() %>"
+                   onclick="return confirm('Delete this complaint?')">Delete</a>
             </td>
         </form>
     </tr>
