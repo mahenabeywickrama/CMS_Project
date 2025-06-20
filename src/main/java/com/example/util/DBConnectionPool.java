@@ -1,25 +1,37 @@
 package com.example.util;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.annotation.WebListener;
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import javax.sql.DataSource;
+import java.sql.SQLException;
 
-public class DBConnectionPool {
-    private static final BasicDataSource ds = new BasicDataSource();
-
-    static {
-        ds.setUrl("jdbc:mysql://localhost:3306/cms_db");
+@WebListener
+public class DBConnectionPool implements ServletContextListener {
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost:3306/cms_db");
         ds.setUsername("root");
         ds.setPassword("mysql");
-        ds.setMinIdle(5);
+        ds.setInitialSize(5);
         ds.setMaxTotal(10);
-        ds.setMaxOpenPreparedStatements(100);
+
+        ServletContext sc = sce.getServletContext();
+        sc.setAttribute("ds", ds);
     }
 
-    public static DataSource getDataSource() {
-        return ds;
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        try {
+            ServletContext sc = sce.getServletContext();
+            BasicDataSource ds = (BasicDataSource) sc.getAttribute("ds");
+            ds.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
-    private DBConnectionPool() { }
 }
